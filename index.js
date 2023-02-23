@@ -16,9 +16,19 @@ app.use(
 );
 
 app.get("/", (request, response) => {
-  const users = prisma.users.findMany()
-  console.log("🚀 ~ file: index.js:20 ~ app.get ~ users:", users)
-  response.json(users);
+  const users = prisma.users.findMany();
+  const idk = prisma.users.create({
+    data: {
+      email: "test1@prisma.com",
+      name: "test1",
+      post: ["Hehe boi", "noice"],
+    },
+    select:{
+      
+    }
+  });
+  console.log("🚀 ~ file: index.js:20 ~ app.get ~ idk:", idk);
+  response.json(idk);
 });
 
 app.get("/users", db.getUsers);
