@@ -1,8 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const db = require("./queries");
+const { PrismaClient } = require("@prisma/client");
 
 const app = express();
+const prisma = new PrismaClient();
 const port = 3000;
 
 app.use(bodyParser.json());
@@ -14,7 +16,9 @@ app.use(
 );
 
 app.get("/", (request, response) => {
-  response.json({ info: "Node.js, Express, and Postgres API" });
+  const users = prisma.users.findMany()
+  console.log("🚀 ~ file: index.js:20 ~ app.get ~ users:", users)
+  response.json(users);
 });
 
 app.get("/users", db.getUsers);
